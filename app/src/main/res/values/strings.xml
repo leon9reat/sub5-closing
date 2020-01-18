@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">TMDB 5</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_popular">Popular</string>
+    <string name="title_favorite">Favorite</string>
+    <string name="title_profile">Profile</string>
+    <string name="tab_movie">Movie</string>
+    <string name="tab_tv_show">TV Show</string>
+
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="no_data">No Data</string>
+    <string name="description_poster">Poster Image</string>
+    <string name="title_share">Share</string>
+    <string name="description_profile">photo profile</string>
+    <string name="label_photo">Photos</string>
+    <string name="label_follower">Followers</string>
+    <string name="text_show_comments">Show all comments</string>
+    <string name="text_add_group">Add to group</string>
+    <string name="text_phone" translatable="false">+62 813 45 019 699</string>
+    <string name="text_email" translatable="false">cyber.hecker@gmail.com</string>
+    <string name="label_following">Following</string>
+    <string name="text_follow_me">Follow Me</string>
+    <string name="change_language">Change Language</string>
+    <string name="label_title">Title</string>
+    <string name="label_release">Release Date</string>
+    <string name="label_vote">Average Vote</string>
+    <string name="label_overview">Overview</string>
+    <string name="label_airing">First Airing</string>
+    <string name="title_tv_show_favorite">TV Show Favorite</string>
+    <string name="title_movie_favorite">Movie Favorite</string>
+    <string name="title_detail_favorite">Detail Favorite</string>
+    <string name="title_popular_tvshow">Popular TV Show</string>
+    <string name="title_tvshow_detail">TV Show Detail</string>
+    <string name="title_movie_detail">Movie Detail</string>
+    <string name="title_movie_popular">Movie Popular</string>
+</resources>

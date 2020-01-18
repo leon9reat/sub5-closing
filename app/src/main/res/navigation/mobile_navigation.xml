@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_popular">
+
+    <fragment
+        android:id="@+id/navigation_popular"
+        android:name="com.medialink.sub5close.ui.popular.PopularFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_popular" >
+        <action
+            android:id="@+id/action_moviePopularFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+        <action
+            android:id="@+id/action_tvShowPopularFragment_to_tvShowDetailFragment"
+            app:destination="@id/tvShowDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_favorite"
+        android:name="com.medialink.sub5close.ui.favorite.FavoriteFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_movieFavoriteFragment_to_favoriteDetailFragment"
+            app:destination="@id/favoriteDetailFragment" />
+        <action
+            android:id="@+id/action_tvShowFavoriteFragment_to_favoriteDetailFragment"
+            app:destination="@id/favoriteDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.medialink.sub5close.ui.profile.ProfileFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/moviePopularFragment"
+        android:name="com.medialink.sub5close.ui.popular.movie.MoviePopularFragment"
+        android:label="fragment_movie_popular"
+        tools:layout="@layout/fragment_movie_popular" >
+        <action
+            android:id="@+id/action_moviePopularFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.medialink.sub5close.ui.popular.movie.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail" >
+        <argument
+            android:name="movie"
+            app:argType="com.medialink.sub4moviedb.model.movie.Movie" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowPopularFragment"
+        android:name="com.medialink.sub5close.ui.popular.tvShow.TvShowPopularFragment"
+        android:label="fragment_tv_show_popular"
+        tools:layout="@layout/fragment_tv_show_popular" >
+        <action
+            android:id="@+id/action_tvShowPopularFragment_to_tvShowDetailFragment"
+            app:destination="@id/tvShowDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowDetailFragment"
+        android:name="com.medialink.sub5close.ui.popular.tvShow.TvShowDetailFragment"
+        android:label="fragment_tv_show_detail"
+        tools:layout="@layout/fragment_tv_show_detail" >
+        <argument
+            android:name="tvShow"
+            app:argType="com.medialink.sub4moviedb.model.tv_show.TvShow" />
+    </fragment>
+    <fragment
+        android:id="@+id/tvShowFavoriteFragment"
+        android:name="com.medialink.sub5close.ui.favorite.tvShow.TvShowFavoriteFragment"
+        android:label="fragment_tv_show_favorite"
+        tools:layout="@layout/fragment_tv_show_favorite" >
+        <action
+            android:id="@+id/action_tvShowFavoriteFragment_to_favoriteDetailFragment"
+            app:destination="@id/favoriteDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieFavoriteFragment"
+        android:name="com.medialink.sub5close.ui.favorite.movie.MovieFavoriteFragment"
+        android:label="fragment_movie_favorite"
+        tools:layout="@layout/fragment_movie_favorite" >
+        <action
+            android:id="@+id/action_movieFavoriteFragment_to_favoriteDetailFragment"
+            app:destination="@id/favoriteDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteDetailFragment"
+        android:name="com.medialink.sub5close.ui.favorite.FavoriteDetailFragment"
+        android:label="fragment_favorite_detail"
+        tools:layout="@layout/fragment_favorite_detail" >
+        <argument
+            android:name="favorite"
+            app:argType="com.medialink.sub5close.database.Favorite" />
+        <argument
+            android:name="type"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
+</navigation>
