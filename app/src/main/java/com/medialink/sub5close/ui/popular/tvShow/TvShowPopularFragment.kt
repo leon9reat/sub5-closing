@@ -4,18 +4,18 @@ package com.medialink.sub5close.ui.popular.tvShow
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.medialink.sub4moviedb.model.tv_show.TvShow
-
 import com.medialink.sub5close.R
 import com.medialink.sub5close.adapter.popular.TvShowAdapter
 import kotlinx.android.synthetic.main.fragment_tv_show_popular.*
@@ -108,7 +108,9 @@ class TvShowPopularFragment : Fragment(), TvShowAdapter.ItemClickListener {
     }
 
     override fun onItemClicked(tvShow: TvShow, position: Int) {
-        Log.d("debug", "onItemClicked :")
+        val toTvShowDetailFragment = TvShowPopularFragmentDirections
+            .actionTvShowPopularFragmentToTvShowDetailFragment(tvShow)
+        findNavController().navigate(toTvShowDetailFragment)
     }
 
     override fun onLikeClicked(tvShow: TvShow, position: Int) {

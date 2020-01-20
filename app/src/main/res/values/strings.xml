@@ -34,5 +34,14 @@
     <string name="title_popular_tvshow">Popular TV Show</string>
     <string name="title_tvshow_detail">TV Show Detail</string>
     <string name="title_movie_detail">Movie Detail</string>
-    <string name="title_movie_popular">Movie Popular</string>
+    <string name="title_popular_movie">Popular Movies</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_btn_back">Back to \nHome</string>
+    <string name="label_account_info">Account Info</string>
+    <string name="label_name_user">Name</string>
+    <string name="label_mobile_user">Mobile</string>
+    <string name="label_email_user">Email</string>
+    <string name="label_address_user">Address</string>
+    <string name="title_dob_user">D.O.B</string>
 </resources>

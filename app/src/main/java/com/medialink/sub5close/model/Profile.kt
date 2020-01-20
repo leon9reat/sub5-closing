@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class Profile(
     val id: Int,
     val userName: String,
-    val countPhotos: Int,
-    val countFollower: Int,
-    val countFollowing: Int,
+    val name: String,
     val email: String,
-    val phone: String
+    val phone: String,
+    val address: String,
+    val dob: String
 ) : Parcelable 

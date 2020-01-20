@@ -12,10 +12,14 @@
         tools:layout="@layout/fragment_popular" >
         <action
             android:id="@+id/action_moviePopularFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/action_tvShowPopularFragment_to_tvShowDetailFragment"
-            app:destination="@id/tvShowDetailFragment" />
+            app:destination="@id/tvShowDetailFragment"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
     </fragment>
 
     <fragment
