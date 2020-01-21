@@ -27,6 +27,7 @@ class MovieRepository : MovieDataSource {
                 return "${lokal}-${iso3Country}"
             }
         }
+    override var searchText: String = ""
 
     override fun getMovies(callback: OperationCallback) {
         call = RetrofitClient.getApiMovie().getMoviePopular(page, language)
@@ -34,6 +35,31 @@ class MovieRepository : MovieDataSource {
             override fun onFailure(call: Call<MovieRespon>, t: Throwable) {
                 callback.onError(t)
                 Log.d("debug", t.message.toString())
+            }
+
+            override fun onResponse(call: Call<MovieRespon>, response: Response<MovieRespon>) {
+                if (response.isSuccessful) {
+                    callback.onSuccess(response.body()?.results)
+                    Log.d("debug", "success: ${response.body()?.totalResults}")
+                } else {
+                    val jsonString = response.errorBody()?.charStream()?.readText() ?: "{}"
+                    val error404 = Gson().fromJson(jsonString, ErrorRespon::class.java)
+                    when (response.code()) {
+                        401 -> callback.onError(error404.statusMessage)
+                        404 -> callback.onError(error404.statusMessage)
+                        else -> callback.onError(jsonString)
+                    }
+                }
+            }
+
+        })
+    }
+
+    override fun findMovies(callback: OperationCallback, query: String) {
+        call = RetrofitClient.getApiMovie().findMoviePopular(page, language, query)
+        call?.enqueue(object : Callback<MovieRespon> {
+            override fun onFailure(call: Call<MovieRespon>, t: Throwable) {
+                callback.onError(t)
             }
 
             override fun onResponse(call: Call<MovieRespon>, response: Response<MovieRespon>) {

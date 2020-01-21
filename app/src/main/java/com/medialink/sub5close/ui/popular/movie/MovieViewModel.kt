@@ -2,6 +2,7 @@ package com.medialink.sub5close.ui.popular.movie
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -41,6 +42,18 @@ class MovieViewModel(application: Application) : AndroidViewModel(application), 
 
     var localLanguage: String = "en"
 
+    var page: Int
+        get() = movieRepo.page
+        set(value) {
+            movieRepo.page = value
+        }
+
+    var searchText: String
+        get() = movieRepo.searchText
+        set(value) {
+            movieRepo.searchText = value
+        }
+
     init {
         val favDao = FavoriteDatabase.getDatabase(application.applicationContext)
             .favoriteDao()
@@ -59,7 +72,10 @@ class MovieViewModel(application: Application) : AndroidViewModel(application), 
                 _isDataChanged.value = false
 
                 if (obj != null && obj is List<*>) {
-                    if (obj.isEmpty()) {
+
+                    val tempList: MutableList<Movie>? = _movies.value?.toMutableList()
+
+                    if (obj.isEmpty() && (tempList?.size ?: 0) < 1) {
                         _isEmptyList.value = true
                     } else {
                         _isEmptyList.value = false
@@ -72,7 +88,16 @@ class MovieViewModel(application: Application) : AndroidViewModel(application), 
                                     listMovie[i].isFavorite = isFav
                                 }
                             }
-                            _movies.postValue(listMovie)
+
+                            Log.d("debug", "page: ${movieRepo.page}")
+
+                            if (movieRepo.page > 1) {
+                                tempList?.addAll(listMovie)
+                                _movies.postValue(tempList)
+                            } else {
+                                _movies.postValue(listMovie)
+                            }
+
                         }
                     }
                 }
@@ -84,6 +109,62 @@ class MovieViewModel(application: Application) : AndroidViewModel(application), 
                 _onMessageError.value = obj
             }
         })
+    }
+
+    fun findMovie(page: Int, query: String) {
+        _isLoading.value = true
+        movieRepo.page = page
+        movieRepo.searchText = query
+
+        movieRepo.findMovies(object : OperationCallback {
+            override fun onSuccess(obj: Any?) {
+                _isLoading.value = false
+                _isDataChanged.value = false
+
+                if (obj != null && obj is List<*>) {
+                    val tempList: MutableList<Movie>? = _movies.value?.toMutableList()
+
+                    if (obj.isEmpty() && (tempList?.size ?: 0) < 1) {
+                        _isEmptyList.value = true
+                        return
+                    }
+
+                    _isEmptyList.value = false
+
+                    val newList = obj as List<Movie>
+
+                    // jika data yang load baru tidak ada, berarti udah page terakhir
+                    /*if (newList.size < 1) {
+                        Log.d("debug", "end of page")
+                        return
+                    }*/
+
+
+                    launch {
+                        withContext(Dispatchers.IO) {
+                            for (i in newList.indices) {
+                                val isFav = favoriteRepo.isFavorite(newList[i].id as Int)
+                                newList[i].isFavorite = isFav
+                            }
+                        }
+                    }
+
+                    if (movieRepo.page > 1) {
+                        tempList?.addAll(newList)
+                        _movies.postValue(tempList)
+                    } else {
+                        _movies.postValue(newList)
+                    }
+                }
+            }
+
+            override fun onError(obj: Any?) {
+                _isLoading.value = false
+                _isEmptyList.value = false
+                _onMessageError.value = obj
+            }
+
+        }, query)
     }
 
     override fun onCleared() {

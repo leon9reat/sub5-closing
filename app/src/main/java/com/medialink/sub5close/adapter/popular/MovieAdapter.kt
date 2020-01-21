@@ -12,6 +12,7 @@ import com.medialink.sub4moviedb.model.movie.Movie
 import com.medialink.sub5close.Consts
 import com.medialink.sub5close.R
 import kotlinx.android.synthetic.main.movie_item.view.*
+import kotlinx.coroutines.*
 
 class MovieAdapter(
     private var movies: List<Movie>,
@@ -27,10 +28,10 @@ class MovieAdapter(
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(movie: Movie, position: Int) {
             with(itemView) {
-                tv_title_movie.text = movie.title
+                tv_title_movie_list.text = movie.title
                 tv_date_movie.text = movie.releaseDate
                 tv_overview_movie.text = movie.overview
-                img_poster_movie.load("${Consts.TMDB_PHOTO_URL}${movie.posterPath}") {
+                img_poster_movie_list.load("${Consts.TMDB_PHOTO_URL}${movie.posterPath}") {
                     crossfade(true)
                     placeholder(R.drawable.ic_file_download_black_24dp)
                     transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
@@ -49,16 +50,31 @@ class MovieAdapter(
 
                 btn_like.iconTint = warna
                 btn_like.setTextColor(warna)
-
-                Log.d("debug", "${movie.title} = ${movie.isFavorite}")
             }
         }
     }
 
-    fun update(data: List<Movie>) {
-        if (data.isNotEmpty()) {
-            this.movies = data
-            notifyDataSetChanged()
+    fun replaceAll(data: List<Movie>) {
+        Log.d("debug", "replace all")
+        this.movies = data
+        notifyDataSetChanged()
+    }
+
+    fun updateData(data: List<Movie>) {
+
+        Log.d("debug", "update all")
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val a = async {
+                val tempData : MutableList<Movie> = movies as MutableList<Movie>
+                tempData.addAll(data)
+                return@async tempData
+            }
+
+            withContext(Dispatchers.Main) {
+                movies = a.await()
+                notifyDataSetChanged()
+            }
         }
     }
 

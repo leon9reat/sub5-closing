@@ -7,7 +7,7 @@
     android:padding="8dp">
 
     <ImageView
-        android:id="@+id/img_poster_movie"
+        android:id="@+id/img_poster_movie_list"
         android:layout_width="120dp"
         android:layout_height="160dp"
         android:contentDescription="@string/description_poster"
@@ -25,7 +25,7 @@
         android:layout_marginStart="8dp"
         android:progress="50"
         android:progressDrawable="@drawable/circle"
-        app:layout_constraintStart_toEndOf="@id/img_poster_movie"
+        app:layout_constraintStart_toEndOf="@id/img_poster_movie_list"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="50%" />
 
     <TextView
-        android:id="@+id/tv_title_movie"
+        android:id="@+id/tv_title_movie_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@id/progress_vote_movie"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title_movie"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title_movie_list"
         android:text="Release Date: 01-01-2019" />
 
     <TextView
@@ -78,7 +78,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/btn_like"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/img_poster_movie"
+        app:layout_constraintStart_toEndOf="@id/img_poster_movie_list"
         app:layout_constraintTop_toBottomOf="@id/progress_vote_movie"
         android:text="After fighting his demons for decades, John Rambo now lives in peace on his family ranch in Arizona, but his rest is interrupted when Gabriela, the granddaughter of his housekeeper María, disappears after crossing the border into Mexico to meet her biological father. Rambo, who has become a true father figure for Gabriela over the years, undertakes a desperate and dangerous journey to find her." />
 
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_share"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toEndOf="@+id/img_poster_movie"
+        app:layout_constraintStart_toEndOf="@+id/img_poster_movie_list"
         app:layout_constraintStart_toStartOf="@+id/tv_overview_movie"
         app:layout_constraintTop_toBottomOf="@id/tv_overview_movie" />
 

@@ -11,6 +11,9 @@ import com.medialink.sub4moviedb.model.movie.Movie
 import com.medialink.sub5close.Consts
 import com.medialink.sub5close.R
 import kotlinx.android.synthetic.main.fragment_movie_detail.*
+import kotlinx.android.synthetic.main.fragment_movie_detail.progress_vote_movie
+import kotlinx.android.synthetic.main.fragment_movie_detail.tv_overview_movie
+import kotlinx.android.synthetic.main.fragment_movie_detail.tv_vote_movie
 
 /**
  * A simple [Fragment] subclass.
@@ -30,10 +33,10 @@ class MovieDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tv_title_movie.text = args.title
+        tv_title_movie_detail.text = args.title
         tv_release_movie.text = args.releaseDate
         tv_vote_movie.text = args.voteAverage?.toString()
-        img_poster_movie.load("${Consts.TMDB_PHOTO_URL2}${args.posterPath}") {
+        img_poster_movie_detail.load("${Consts.TMDB_PHOTO_URL2}${args.posterPath}") {
             crossfade(true)
             placeholder(R.drawable.ic_file_download_black_24dp)
         }

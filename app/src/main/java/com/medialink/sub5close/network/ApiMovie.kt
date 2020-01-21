@@ -11,4 +11,12 @@ interface ApiMovie {
         @Query("page") page: Int = 1,
         @Query("language") language: String = "en-US"
     ): Call<MovieRespon>
+
+    // https://api.themoviedb.org/3/search/movie?api_key={api}&language=en-US&query={query}&page=3
+    @GET("search/movie")
+    fun findMoviePopular(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = "en-US",
+        @Query("query") query: String = ""
+    ): Call<MovieRespon>
 }
