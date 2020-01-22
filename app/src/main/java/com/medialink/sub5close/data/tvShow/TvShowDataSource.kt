@@ -8,5 +8,6 @@ interface TvShowDataSource {
     var language: String
 
     fun getTvShows(callback: OperationCallback)
+    fun findTvShow(callback: OperationCallback, query: String)
     fun cancel()
 }

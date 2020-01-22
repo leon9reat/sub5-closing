@@ -34,6 +34,7 @@ class MovieAdapter(
                 img_poster_movie_list.load("${Consts.TMDB_PHOTO_URL}${movie.posterPath}") {
                     crossfade(true)
                     placeholder(R.drawable.ic_file_download_black_24dp)
+                    error(R.drawable.no_image)
                     transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                 }
 

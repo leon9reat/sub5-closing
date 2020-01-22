@@ -1,6 +1,7 @@
 package com.medialink.sub5close.ui.popular.tvShow
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -45,7 +46,16 @@ class TvShowViewModel(application: Application) : AndroidViewModel(application),
     private val _isDataChanged = MutableLiveData<Boolean>()
     val isDataChanged: LiveData<Boolean> = _isDataChanged
 
+    private val _searchText = MutableLiveData<String>()
+    val searchText : LiveData<String> = _searchText
+
     var localLanguage: String = "en"
+
+    var page: Int
+        get() {
+            return tvShowRepo.page
+        }
+        set(value) { tvShowRepo.page = value}
 
     fun loadTvShow(page: Int) {
         _isLoading.value = true
@@ -85,6 +95,57 @@ class TvShowViewModel(application: Application) : AndroidViewModel(application),
         })
     }
 
+    fun findTvShow(page: Int) {
+        _isLoading.value = true
+        tvShowRepo.page = page
+
+        tvShowRepo.findTvShow(object : OperationCallback {
+            override fun onSuccess(obj: Any?) {
+                _isLoading.value = false
+                _isDataChanged.value = false
+
+                if (obj != null && obj is List<*>) {
+                    val tempList : MutableList<TvShow>? = _tvShows.value?.toMutableList()
+                    if (obj.isEmpty() && (tempList?.size ?: 0) < 1) {
+                        _isEmptyList.value = true
+                        return
+                    }
+
+                    _isEmptyList.value = false
+
+                    val newList = obj as List<TvShow>
+
+                    launch {
+                        withContext(Dispatchers.IO) {
+                            for (i in newList.indices) {
+                                val isFav = favoriteRepo.isFavorite(newList[i].id  as Int)
+                                newList[i].isFavorite = isFav
+                            }
+                        }
+                    }
+
+                    if (tvShowRepo.page > 1) {
+                        tempList?.addAll(newList)
+                        _tvShows.postValue(tempList)
+                    } else {
+                        _tvShows.postValue(newList)
+                    }
+                }
+
+                Log.d("debug", "sukses find tv")
+            }
+
+            override fun onError(obj: Any?) {
+                _isLoading.value = false
+                _isEmptyList.value = false
+                _onMessageError.value = obj
+
+                Log.d("debug", "error find tv")
+            }
+
+        }, _searchText.value.toString())
+    }
+
     override fun onCleared() {
         super.onCleared()
         job.cancel()
@@ -116,5 +177,9 @@ class TvShowViewModel(application: Application) : AndroidViewModel(application),
 
     fun setDataChanged() {
         _isDataChanged.value = true
+    }
+
+    fun setSearchText(query: String) {
+        _searchText.value = query
     }
 }

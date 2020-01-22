@@ -11,4 +11,12 @@ interface ApiTvShow {
         @Query("page") page: Int = 1,
         @Query("language") language: String = "en-US"
     ): Call<TvShowRespon>
+
+    // https://api.themoviedb.org/3/search/tv?api_key={api_key}&language=en-US&query=throne&page=1
+    @GET("search/tv")
+    fun findTvPopular(
+        @Query("page") page: Int = 1,
+        @Query("language") language: String = "en-US",
+        @Query("query") query: String = ""
+    ): Call<TvShowRespon>
 }

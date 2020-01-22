@@ -54,6 +54,8 @@ class TvShowPopularFragment : Fragment(), TvShowAdapter.ItemClickListener {
             tvShowViewModel.loadTvShow(1)
             tvShowViewModel.localLanguage = Locale.getDefault().country
         }
+
+        setupListScrollListener()
     }
 
     private fun setupViewModel() {
@@ -62,6 +64,8 @@ class TvShowPopularFragment : Fragment(), TvShowAdapter.ItemClickListener {
                 layout_error.visibility = View.GONE
                 layout_empty.visibility = View.GONE
                 adapter.update(it)
+
+                stopRefreshing()
             })
 
             isLoading.observe(viewLifecycleOwner, Observer {
@@ -85,6 +89,10 @@ class TvShowPopularFragment : Fragment(), TvShowAdapter.ItemClickListener {
                     loadTvShow(1)
                 }
             })
+
+            searchText.observe(viewLifecycleOwner, Observer {
+                if (!it.isNullOrEmpty()) findTvShow(1)
+            })
         }
     }
 
@@ -105,6 +113,53 @@ class TvShowPopularFragment : Fragment(), TvShowAdapter.ItemClickListener {
         )
 
         rv_tv_show.adapter = adapter
+
+        swipe_refresh.setOnRefreshListener {
+            tvShowViewModel.page = 1
+            tvShowViewModel.setSearchText("")
+
+            stopRefreshing()
+            startRefresing()
+        }
+    }
+
+    private fun stopRefreshing() {
+        if (swipe_refresh.isRefreshing) {
+            swipe_refresh.isRefreshing = false
+        }
+    }
+
+    private fun startRefresing() {
+        if (swipe_refresh.isRefreshing) return
+        swipe_refresh.isRefreshing = true
+
+        tvShowViewModel.loadTvShow(1)
+    }
+
+    private fun setupListScrollListener() {
+        rv_tv_show.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val layoutManager = rv_tv_show.layoutManager as LinearLayoutManager
+
+                val totalItems = layoutManager.itemCount
+                val visibleItem = layoutManager.childCount
+                val pastVisibleItem = layoutManager.findFirstCompletelyVisibleItemPosition()
+
+                if ((pastVisibleItem + visibleItem) >= totalItems) {
+                    if (swipe_refresh.isRefreshing || progress_tv_show.visibility == View.VISIBLE) return
+
+                    swipe_refresh.isRefreshing
+                    tvShowViewModel.page++
+                    if (tvShowViewModel.searchText.value.toString().isNullOrEmpty()) {
+                        tvShowViewModel.loadTvShow(tvShowViewModel.page)
+                    } else {
+                        tvShowViewModel.findTvShow(tvShowViewModel.page)
+                    }
+                }
+            }
+        })
     }
 
     override fun onItemClicked(tvShow: TvShow, position: Int) {

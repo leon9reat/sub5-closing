@@ -55,6 +55,29 @@ class TvShowRepository : TvShowDataSource {
         })
     }
 
+    override fun findTvShow(callback: OperationCallback, query: String) {
+        call = RetrofitClient.getApiTv().findTvPopular(page, language, query)
+        call?.enqueue(object : Callback<TvShowRespon> {
+            override fun onFailure(call: Call<TvShowRespon>, t: Throwable) {
+                callback.onError(t)
+            }
+
+            override fun onResponse(call: Call<TvShowRespon>, response: Response<TvShowRespon>) {
+                if (response.isSuccessful) {
+                    callback.onSuccess(response.body()?.results)
+                } else {
+                    val jsonString = response.errorBody()?.charStream()?.readText() ?: "{}"
+                    val error404 = Gson().fromJson(jsonString, ErrorRespon::class.java)
+                    when (response.code()) {
+                        401, 404 -> callback.onError(error404.statusMessage)
+                        else -> callback.onError(jsonString)
+                    }
+                }
+            }
+
+        })
+    }
+
     override fun cancel() {
         call?.cancel()
     }

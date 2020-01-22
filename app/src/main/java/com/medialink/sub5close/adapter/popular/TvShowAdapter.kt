@@ -32,6 +32,7 @@ class TvShowAdapter(
                 img_poster_tvshow.load("${Consts.TMDB_PHOTO_URL}${tvShow.posterPath}") {
                     crossfade(true)
                     placeholder(R.drawable.ic_file_download_black_24dp)
+                    error(R.drawable.no_image)
                     transformations(RoundedCornersTransformation(8f, 8f, 8f, 8f))
                 }
 

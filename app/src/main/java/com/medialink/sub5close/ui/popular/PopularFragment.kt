@@ -16,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.medialink.sub5close.R
 import com.medialink.sub5close.adapter.popular.PopularPagerAdapter
 import com.medialink.sub5close.ui.popular.movie.MovieViewModel
+import com.medialink.sub5close.ui.popular.tvShow.TvShowViewModel
 import kotlinx.android.synthetic.main.fragment_popular.*
 
 class PopularFragment : Fragment() {
@@ -102,6 +103,10 @@ class PopularFragment : Fragment() {
                     movieViewModel.findMovie(1, query ?: "")
                 } else {
                     // cari tab tv show
+                    activity?.let {
+                        val tvShowViewModel = ViewModelProvider(it).get(TvShowViewModel::class.java)
+                        tvShowViewModel.setSearchText(searchText)
+                    }
                 }
 
                 return true
