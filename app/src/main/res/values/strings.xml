@@ -45,4 +45,6 @@
     <string name="label_address_user">Address</string>
     <string name="title_dob_user">D.O.B</string>
     <string name="label_search">Search</string>
+    <string name="appwidget_text">List Favorite</string>
+    <string name="add_widget">Add widget</string>
 </resources>

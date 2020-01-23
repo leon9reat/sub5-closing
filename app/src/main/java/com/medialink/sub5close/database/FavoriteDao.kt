@@ -10,6 +10,9 @@ interface FavoriteDao {
     @Query("SELECT * FROM ${Consts.TABLE_NAME} WHERE ${Consts.FIELD_TYPE} = :ptype")
     fun getFavorite(ptype: Int): LiveData<List<Favorite>>
 
+    @Query("SELECT * FROM ${Consts.TABLE_NAME}")
+    suspend fun getAllFavorite() : List<Favorite>
+
     @Query("SELECT COUNT(id) FROM ${Consts.TABLE_NAME} WHERE tmdb_id = :pid")
     suspend fun getCountFavorite(pid: Int): Int
 

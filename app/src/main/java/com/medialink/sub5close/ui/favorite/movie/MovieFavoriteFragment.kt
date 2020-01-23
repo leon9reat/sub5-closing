@@ -1,6 +1,8 @@
 package com.medialink.sub5close.ui.favorite.movie
 
 
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,7 +21,9 @@ import com.medialink.sub5close.R
 import com.medialink.sub5close.adapter.favorite.MovieFavoriteAdapter
 import com.medialink.sub5close.database.Favorite
 import com.medialink.sub5close.ui.popular.movie.MovieViewModel
+import com.medialink.sub5close.widget.Sub5Widget
 import kotlinx.android.synthetic.main.fragment_movie_favorite.*
+
 
 /**
  * A simple [Fragment] subclass.
