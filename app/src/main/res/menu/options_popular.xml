@@ -11,4 +11,8 @@
         android:id="@+id/option_main_change_language"
         android:title="@string/change_language"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/option_setting"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
 </menu>

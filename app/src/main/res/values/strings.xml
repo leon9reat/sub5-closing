@@ -47,4 +47,10 @@
     <string name="label_search">Search</string>
     <string name="appwidget_text">List Favorite</string>
     <string name="add_widget">Add widget</string>
+    <string name="key_release_reminder">KEY_RELEASE_REMINDER</string>
+    <string name="key_daily_reminder">KEY_DAILY_REMINDER</string>
+    <string name="title_release_reminder">Release Reminder</string>
+    <string name="title_daily_reminder">Daily Reminder</string>
+    <string name="summary_release_reminder">Reminder showing the movies that released today</string>
+    <string name="summary_daily_reminder">Reminder for return to app</string>
 </resources>

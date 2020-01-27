@@ -3,6 +3,11 @@
     package="com.medialink.sub5close">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <permission android:name="com.medialink.sub5close.READ_DATABASE" android:protectionLevel="normal" />
+    <permission android:name="com.medialink.sub5close.WRITE_DATABASE" android:protectionLevel="normal" />
+
 
     <application
         android:allowBackup="true"
@@ -12,6 +17,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="com.medialink.sub5close"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.medialink.sub5close.READ_DATABASE"
+            android:writePermission="com.medialink.sub5close.WRITE_DATABASE" />
+
+        <receiver
+            android:name=".alarm.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <service
             android:name=".widget.StackWidgetService"
             android:enabled="true"

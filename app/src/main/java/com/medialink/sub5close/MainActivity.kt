@@ -16,8 +16,9 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.medialink.sub5close.alarm.AlarmReceiver
+import com.medialink.sub5close.preference.PreferenceHelper
 import com.medialink.sub5close.ui.favorite.movie.MovieFavoriteViewModel
-import com.medialink.sub5close.ui.favorite.tvShow.TvShowFavoriteViewModel
 import com.medialink.sub5close.widget.Sub5Widget
 
 
@@ -66,6 +67,8 @@ class MainActivity : AppCompatActivity() {
             appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view)
         })
 
+        initAlarm()
+
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -73,10 +76,38 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.option_main_change_language) {
-            val settingIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivityForResult(settingIntent, 901)
+        when (item.itemId) {
+            R.id.option_main_change_language -> {
+                val settingIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivityForResult(settingIntent, 901)
+            }
+            R.id.option_setting -> {
+                navController.navigate(R.id.action_global_settingFragment)
+                /*val data = arrayListOf<NotificationItem>().apply {
+                    add(NotificationItem(1, "judul", "filem baru 1"))
+
+                }
+                val alarmReceiver = AlarmReceiver()
+                alarmReceiver.sendNotification(this, data)*/
+            }
+
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initAlarm() {
+        val alarmReceiver = AlarmReceiver()
+        if (PreferenceHelper.getInstance(this)?.isDailyReminder() == true) {
+            alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.ID_DAILY)
+            Log.d(TAG, "onCreate: set daily reminder")
+        } else {
+            alarmReceiver.cancelAlarm(this, AlarmReceiver.ID_DAILY)
+        }
+        if (PreferenceHelper.getInstance(this)?.isRelesedReminder() == true) {
+            alarmReceiver.setRepeatingAlarm(this, AlarmReceiver.ID_RELEASE)
+            Log.d(TAG, "onCreate: set relese reminder")
+        } else {
+            alarmReceiver.cancelAlarm(this, AlarmReceiver.ID_RELEASE)
+        }
     }
 }

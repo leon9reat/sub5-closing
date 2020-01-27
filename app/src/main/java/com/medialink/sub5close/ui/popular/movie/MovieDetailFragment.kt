@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import coil.api.load
 import com.medialink.sub4moviedb.model.movie.Movie
@@ -22,13 +24,27 @@ class MovieDetailFragment : Fragment() {
 
     private lateinit var args: Movie
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         args = MovieDetailFragmentArgs.fromBundle(arguments as Bundle).movie
-        return inflater.inflate(R.layout.fragment_movie_detail, container, false)
+        val root = inflater.inflate(R.layout.fragment_movie_detail, container, false)
+
+        (activity as AppCompatActivity?)?.let {
+            val toolbar: Toolbar = root.findViewById(R.id.toolbar_global)
+            it.setSupportActionBar(toolbar)
+            it.supportActionBar?.title = getString(R.string.title_movie_detail)
+            it.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        }
+        setHasOptionsMenu(true)
+
+        return root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

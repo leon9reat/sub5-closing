@@ -19,4 +19,12 @@ interface ApiMovie {
         @Query("language") language: String = "en-US",
         @Query("query") query: String = ""
     ): Call<MovieRespon>
+
+    @GET("discover/movie")
+    suspend fun getMovieRelease(
+        @Query("page") page: Int,
+        @Query("language") language: String,
+        @Query("primary_release_date.gte") dr_tgl: String,
+        @Query("primary_release_date.lte") sp_tgl: String
+    ): MovieRespon
 }

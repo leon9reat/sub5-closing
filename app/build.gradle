@@ -72,9 +72,15 @@ dependencies {
 
     // Lifecycle components
     def version_lifecycle = "2.2.0-rc03"
+
+    ext {
+        archLifecycleVersion = '2.2.0-rc03'
+    }
+    // viewmodel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$archLifecycleVersion"
+
     // viewmodel and livedata
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle"
-    implementation "androidx.lifecycle:lifecycle-common-java8:$version_lifecycle"
     kapt "androidx.lifecycle:lifecycle-compiler:$version_lifecycle"
 
     // retrofit
@@ -95,6 +101,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
+    def preference_version = "1.1.0"
+    implementation "androidx.preference:preference-ktx:$preference_version"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'

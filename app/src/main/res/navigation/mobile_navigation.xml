@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/moviePopularFragment"
         android:name="com.medialink.sub5close.ui.popular.movie.MoviePopularFragment"
-        android:label="fragment_movie_popular"
+        android:label="@string/title_popular_movie"
         tools:layout="@layout/fragment_movie_popular" >
         <action
             android:id="@+id/action_moviePopularFragment_to_movieDetailFragment"
@@ -52,7 +52,7 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="com.medialink.sub5close.ui.popular.movie.MovieDetailFragment"
-        android:label="fragment_movie_detail"
+        android:label="@string/title_movie_detail"
         tools:layout="@layout/fragment_movie_detail" >
         <argument
             android:name="movie"
@@ -61,7 +61,7 @@
     <fragment
         android:id="@+id/tvShowPopularFragment"
         android:name="com.medialink.sub5close.ui.popular.tvShow.TvShowPopularFragment"
-        android:label="fragment_tv_show_popular"
+        android:label="@string/title_popular_tvshow"
         tools:layout="@layout/fragment_tv_show_popular" >
         <action
             android:id="@+id/action_tvShowPopularFragment_to_tvShowDetailFragment"
@@ -70,7 +70,7 @@
     <fragment
         android:id="@+id/tvShowDetailFragment"
         android:name="com.medialink.sub5close.ui.popular.tvShow.TvShowDetailFragment"
-        android:label="fragment_tv_show_detail"
+        android:label="@string/title_tvshow_detail"
         tools:layout="@layout/fragment_tv_show_detail" >
         <argument
             android:name="tvShow"
@@ -79,7 +79,7 @@
     <fragment
         android:id="@+id/tvShowFavoriteFragment"
         android:name="com.medialink.sub5close.ui.favorite.tvShow.TvShowFavoriteFragment"
-        android:label="fragment_tv_show_favorite"
+        android:label="@string/title_tv_show_favorite"
         tools:layout="@layout/fragment_tv_show_favorite" >
         <action
             android:id="@+id/action_tvShowFavoriteFragment_to_favoriteDetailFragment"
@@ -88,7 +88,7 @@
     <fragment
         android:id="@+id/movieFavoriteFragment"
         android:name="com.medialink.sub5close.ui.favorite.movie.MovieFavoriteFragment"
-        android:label="fragment_movie_favorite"
+        android:label="@string/title_movie_favorite"
         tools:layout="@layout/fragment_movie_favorite" >
         <action
             android:id="@+id/action_movieFavoriteFragment_to_favoriteDetailFragment"
@@ -97,7 +97,7 @@
     <fragment
         android:id="@+id/favoriteDetailFragment"
         android:name="com.medialink.sub5close.ui.favorite.FavoriteDetailFragment"
-        android:label="fragment_favorite_detail"
+        android:label="@string/title_detail_favorite"
         tools:layout="@layout/fragment_favorite_detail" >
         <argument
             android:name="favorite"
@@ -107,4 +107,10 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.medialink.sub5close.ui.SettingFragment"
+        android:label="@string/action_settings"
+        />
+    <action android:id="@+id/action_global_settingFragment" app:destination="@id/settingFragment" />
 </navigation>

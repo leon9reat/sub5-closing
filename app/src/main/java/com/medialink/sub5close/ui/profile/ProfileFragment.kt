@@ -36,6 +36,7 @@ class ProfileFragment : Fragment() {
             it.setSupportActionBar(toolbar)
             it.supportActionBar?.title = getString(R.string.title_profile)
         }
+        setHasOptionsMenu(true)
 
         profileViewModel.text.observe(viewLifecycleOwner, Observer {
             tv_username_user.text = it.userName

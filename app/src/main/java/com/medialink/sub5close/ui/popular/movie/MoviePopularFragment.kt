@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -21,7 +20,6 @@ import com.medialink.sub5close.R
 import com.medialink.sub5close.adapter.popular.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_movie_popular.*
 import kotlinx.android.synthetic.main.layout_error.*
-import kotlinx.android.synthetic.main.movie_item.*
 import java.util.*
 
 /**

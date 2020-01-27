@@ -1,5 +1,6 @@
 package com.medialink.sub5close.database
 
+import android.content.ContentValues
 import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -18,4 +19,20 @@ data class Favorite(
     @ColumnInfo(name = "tmdb_poster") val poster: String,
     @ColumnInfo(name = "tmdb_type") val type: Int // 1 movie, 2 tv
 ) : Parcelable {
+
+    companion object {
+        fun fromContentValues(values: ContentValues): Favorite {
+            val favorite: Favorite = Favorite(
+                values.getAsInteger(Consts.FavoriteColumn._ID),
+                values.getAsInteger(Consts.FavoriteColumn.TMDB_ID),
+                values.getAsString(Consts.FavoriteColumn.TITLE),
+                values.getAsString(Consts.FavoriteColumn.DATE),
+                values.getAsString(Consts.FavoriteColumn.OVERVIEW),
+                values.getAsString(Consts.FavoriteColumn.POSTER),
+                values.getAsInteger(Consts.FavoriteColumn.TYPE)
+
+            )
+            return favorite
+        }
+    }
 }

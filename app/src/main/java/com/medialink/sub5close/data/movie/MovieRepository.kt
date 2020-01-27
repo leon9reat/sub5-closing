@@ -2,6 +2,7 @@ package com.medialink.sub5close.data.movie
 
 import android.util.Log
 import com.google.gson.Gson
+import com.medialink.sub4moviedb.model.movie.Movie
 import com.medialink.sub4moviedb.model.movie.MovieRespon
 import com.medialink.sub5close.data.OperationCallback
 import com.medialink.sub5close.model.error.ErrorRespon
@@ -79,6 +80,13 @@ class MovieRepository : MovieDataSource {
 
         })
     }
+
+    override suspend fun findMovieToday(
+        page: Int,
+        language: String,
+        drTgl: String,
+        spTgl: String
+    ): MovieRespon = RetrofitClient.getApiMovie().getMovieRelease(page, language, drTgl, spTgl)
 
     override fun cancel() {
         call?.cancel()
